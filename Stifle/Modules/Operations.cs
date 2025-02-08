@@ -13,7 +13,7 @@ namespace Stifle.Modules
             X509Certificate2 cert = new X509Certificate2(rawcert, password, X509KeyStorageFlags.PersistKeySet);
 
             string altSecurityIdentities = Cert.GetAltSecurityIdentities(cert);
-            Console.WriteLine("[*] Derived altSecurityIdentities value: " + altSecurityIdentities);
+            Console.WriteLine(" [*] Derived altSecurityIdentities value: " + altSecurityIdentities);
             setASI(altSecurityIdentities, prinicpal);
 
             return true;
@@ -34,7 +34,7 @@ namespace Stifle.Modules
 
                 if (results.Count == 0)
                 {
-                    Console.WriteLine("[!] Cannot find account");
+                    Console.WriteLine(" [!] Cannot find account");
                     return;
                 }
 
@@ -43,12 +43,12 @@ namespace Stifle.Modules
                     DirectoryEntry mde = sr.GetDirectoryEntry();
                     mde.Properties["altSecurityIdentities"].Add(altSecurityIdentities);
                     mde.CommitChanges();
-                    Console.WriteLine("[+] Certificate mapping added to " + user);
+                    Console.WriteLine(" [+] Certificate mapping added to " + user);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[!] Failed to write altSecurityIdentities attrbute: " + ex.Message);
+                Console.WriteLine(" [!] Failed to write altSecurityIdentities attrbute: " + ex.Message);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Stifle.Modules
                 DirectoryEntry mde = sr.GetDirectoryEntry();
                 mde.Properties["altSecurityIdentities"].Clear();    
                 mde.CommitChanges();
-                Console.WriteLine("[+] Certificate mapping cleared from " + user);
+                Console.WriteLine(" [+] Certificate mapping cleared from " + user);
             }
         }
     }
