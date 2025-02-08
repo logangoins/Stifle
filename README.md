@@ -1,7 +1,7 @@
 # Description
-Nearly a year ago, Jonas Knudsen (@Jonas_B_K) over at SpecterOps published a blog titled “ADCS ESC14 Abuse Technique”, covering a previously known technique for leveraging Active Directory Certificate Services (ADCS) for multiple types of account takeover via explicit certificate mapping. He published a collection of PowerShell tooling used for generating and writing the `altSecurityIdenities` attribute as part of the primary variation of the abuse technique. Since this technique could be seen as the third main method of account takeover when holding a write primitive over an object (apart from RBCD and Shadow credentials), I thought it needed its own .NET tooling. 
+Nearly a year ago, Jonas Knudsen ([@Jonas_B_K](https://x.com/Jonas_B_K)) over at SpecterOps published a blog titled “ADCS ESC14 Abuse Technique”, covering a previously known technique for leveraging Active Directory Certificate Services (ADCS) for multiple types of account takeover via explicit certificate mapping. He published a collection of PowerShell tooling used for generating and writing the `altSecurityIdenities` attribute as part of the primary variation of the abuse technique. Since this technique could be seen as the third main method of account takeover when holding a write primitive over an object (along with RBCD and Shadow Credentials), I thought it needed its own .NET tooling since I noticed there hasn't been a single release for the past year. 
 
-Introducing Stifle, an extremely simple .NET post-exploitation utility that uses a passed certificate to set explicit certificate mapping on a target object, allowing impersonation of the target object using the certificate mapped. 
+Introducing Stifle, an extremely simple .NET post-exploitation utility that uses a passed certificate to set explicit certificate mapping on a target object, allowing authentication as the target object using the already held certificate mapped. 
 
 ```
    _____ _   _  __ _
@@ -30,7 +30,7 @@ Then copy the certificate information into a `.pem` file and use the openssl bin
 openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export | base64 -w 0
 ```
 
-Next copy the exported certificate into a Stifle command, which will generate an altSecurityIdentities certificate mapping string and write it to the target object:
+Next copy the exported certificate and exported certificate password into Stifle, which will generate a certificate mapping string and write it to the target objects `altSecurityIdentities` attribute:
 ```
 Stifle.exe add /object:target /certificate:MIIMrQI... /password:P@ssw0rd
 ```
