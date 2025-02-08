@@ -9,6 +9,8 @@ namespace Stifle.Modules
 {
     public class Cert
     {
+
+        // Credit to Dave Cossa (@G0ldenGunSec)
         public static string GetAltSecurityIdentities(X509Certificate2 cert)
         {
             StringBuilder stringBuilder1 = new StringBuilder();
