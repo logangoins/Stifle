@@ -22,7 +22,9 @@ Introducing Stifle, an extremely simple .NET post-exploitation utility that uses
 
 # Use
 First request a certificate using Certify that the target object will be mapped to (Note the certificate requested must be a machine account certificate):
-```Certify.exe request /ca:lab.lan\lab-dc01-ca /template:Machine /machine```
+```
+Certify.exe request /ca:lab.lan\lab-dc01-ca /template:Machine /machine
+```
 ![image](https://github.com/user-attachments/assets/6472d40d-333e-47a9-9f34-19380eec2463)
 
 Then copy the certificate information into a `.pem` file and use the openssl binary on a unix-based system to convert to base64 `.pfx` format:
